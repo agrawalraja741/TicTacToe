@@ -1,5 +1,12 @@
+import Controller.GameController;
+import Validators.Validators;
+
+import java.util.Scanner;
+
 public class Client {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+
+        GameController gameController = new GameController();
+        gameController.startGame();
     }
 }
