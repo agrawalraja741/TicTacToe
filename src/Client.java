@@ -1,5 +1,6 @@
 import Controller.GameController;
 import Model.*;
+import Strategy.NextCellBotPlayingStrategy;
 import Validators.Validators;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class Client {
 
         Board board = new Board(3);
         Player player1 = new HumanPlayer(0,"Raja", PlayerType.HUMAN, new Symbol('X'),"8989898989");
-        Player player2 = new HumanPlayer(1,"Aman", PlayerType.HUMAN, new Symbol('O'),"6767676767");
-
+        //Player player2 = new HumanPlayer(1,"Aman", PlayerType.HUMAN, new Symbol('O'),"6767676767");
+        Player player2 = new BotPlayer(1,"Bot", PlayerType.BOT, new Symbol('O') , BotDifficultyLevel.EASY , new NextCellBotPlayingStrategy());
         List<Player> players = new ArrayList<Player>();
         players.add(player1);
         players.add(player2);
