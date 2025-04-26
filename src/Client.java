@@ -24,6 +24,7 @@ public class Client {
         List<WinningStrategyType> winningStrategyTypeList = new ArrayList<>();
         winningStrategyTypeList.add(WinningStrategyType.ROW);
         winningStrategyTypeList.add(WinningStrategyType.COLUMN);
+        winningStrategyTypeList.add(WinningStrategyType.DIAGONAL);
 
         GameController gameController = new GameController();
         TicTacToeGame game = gameController.startGame
