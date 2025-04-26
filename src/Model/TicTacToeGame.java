@@ -2,6 +2,7 @@ package Model;
 
 import Factory.WinningStrategyFactory;
 import Strategy.WinningStrategy;
+import Validators.Validators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,11 @@ public class TicTacToeGame {
     private int nextPlayerIndex;
     private Player winnerPlayer;
 
-    public TicTacToeGame(int size ,List<Player> players, List<WinningStrategyType> winningStrategyTypeList, GameStatus gameStatus) {
-        this.size = size;
+    public TicTacToeGame(GameBuilder gameBuilder) {
+        this.size = gameBuilder.getSize();
         this.board = new Board(size);
-        this.players = players;
-        this.winningStrategyList = WinningStrategyFactory.getWinningStategy(winningStrategyTypeList);
+        this.players = gameBuilder.getPlayers();
+        this.winningStrategyList = gameBuilder.getWinningStrategyList();
         this.moves = new ArrayList<>();
         this.gameStatus = GameStatus.IN_PROGRESS;
         this.nextPlayerIndex = 0;
@@ -95,5 +96,55 @@ public class TicTacToeGame {
     public void display() {
 
         board.displayBoard();
+    }
+
+    public static GameBuilder getBuilder(){
+        return new GameBuilder();
+    }
+
+    public static class GameBuilder
+    {
+        private int size;
+        private List<Player> players;
+        private List<WinningStrategy> winningStrategyList;
+
+        public List<Player> getPlayers() {
+            return players;
+        }
+
+        public GameBuilder setPlayers(List<Player> players) {
+            this.players = players;
+            return this;
+        }
+
+        public List<WinningStrategy> getWinningStrategyList() {
+            return winningStrategyList;
+        }
+
+        public GameBuilder setWinningStrategyList(List<WinningStrategyType> winningStrategyTypeList) {
+            this.winningStrategyList = WinningStrategyFactory.getWinningStategy(winningStrategyTypeList);
+            return this;
+        }
+
+        public int getSize() {
+            return size;
+        }
+
+        public GameBuilder setSize(int size) {
+            this.size = size;
+            return this;
+        }
+
+        private void validate() {
+            Validators.validateGridSize(this.size);
+            Validators.validatePlayerNo(this.size, this.players.size());
+
+        }
+
+        public TicTacToeGame build()
+        {
+            this.validate();
+            return new TicTacToeGame(this);
+        }
     }
 }

@@ -19,10 +19,9 @@ public class HumanPlayer extends Player {
         this.mobileNumber = mobileNumber;
     }
 
-    public  void makeMove(TicTacToeGame game)
+    public  void makeMove()
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.print(game.get +"Enter move row details: ");
+
     }
 
 }
