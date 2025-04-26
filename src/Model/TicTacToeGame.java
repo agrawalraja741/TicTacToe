@@ -102,6 +102,67 @@ public class TicTacToeGame {
         return new GameBuilder();
     }
 
+    private boolean validMove(Move move) {
+        int row = move.getCell().getRow();
+        int col = move.getCell().getColumn();
+
+        if(row<0 || row>=size || col<0 || col>=size || move.getCell().getCellState().equals(CellState.FILLED)){
+            System.out.println("Invalid move");
+            return false;
+        }
+
+        return true;
+    }
+
+    public void makeMove() {
+
+        Player currentPlayer = players.get(this.getNextPlayerIndex());
+
+        Move move;
+        do
+        {
+            move = currentPlayer.makeMove(board);
+        }
+        while(!validMove(move));
+
+        //Update the cell on the board
+        Cell cellToUpdate = board.getBoard().get(move.getCell().getRow()).get(move.getCell().getColumn());
+        cellToUpdate.setCellState(CellState.FILLED);
+        cellToUpdate.setSymbol(currentPlayer.getSymbol());
+
+        //Add move to move history
+        moves.add(move);
+
+        //Check the winner or if draw
+        if(checkWinner(move)){
+            setGameStatus(GameStatus.SUCCESS);
+            setWinnerPlayer(currentPlayer);
+        }else if(moves.size() == board.getSize() * board.getSize()){
+            setGameStatus(GameStatus.DRAW);
+        }
+        //Increment the next player index
+        nextPlayerIndex++;
+        nextPlayerIndex = nextPlayerIndex % players.size();
+    }
+
+    public boolean checkWinner(Move move)
+    {
+        for(WinningStrategy winningStrategy : getWinningStrategyList())
+        {
+            if(winningStrategy.checkWinner(board,move))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public void undo()
+    {
+
+    }
+
     public static class GameBuilder
     {
         private int size;
@@ -123,6 +184,7 @@ public class TicTacToeGame {
 
         public GameBuilder setWinningStrategyList(List<WinningStrategyType> winningStrategyTypeList) {
             this.winningStrategyList = WinningStrategyFactory.getWinningStategy(winningStrategyTypeList);
+
             return this;
         }
 

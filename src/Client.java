@@ -20,11 +20,37 @@ public class Client {
         players.add(player1);
         players.add(player2);
 
+        List<WinningStrategyType> winningStrategyTypeList = new ArrayList<>();
+        winningStrategyTypeList.add(WinningStrategyType.ROW);
+        winningStrategyTypeList.add(WinningStrategyType.COLUMN);
+
         GameController gameController = new GameController();
         TicTacToeGame game = gameController.startGame
-                (3, players ,List.of(WinningStrategyType.ROW,WinningStrategyType.COLUMN,WinningStrategyType.DIAGONAL) );
+                (3, players , winningStrategyTypeList);
 
         gameController.display(game);
+
+        while(game.getGameStatus().equals(GameStatus.IN_PROGRESS))
+        {
+            gameController.makeMove(game);
+            gameController.display(game);
+
+            if(game.getMoves().get(game.getMoves().size()-1).getPlayer().getPlayerType().equals(PlayerType.HUMAN))
+            {
+                System.out.println("Do you want to undo? Press 1 to continue and 2 to undo");
+                int undo = scanner.nextInt();
+
+                if(undo == 2){
+                    gameController.undo(game);
+                }
+            }
+        }
+
+        if(gameController.checkGameState(game) == GameStatus.SUCCESS){
+            System.out.println(game.getWinnerPlayer().getName() + " is the Winner!");
+        }else if(gameController.checkGameState(game) == GameStatus.DRAW){
+            System.out.println("Game is draw!");
+        }
 
 
     }

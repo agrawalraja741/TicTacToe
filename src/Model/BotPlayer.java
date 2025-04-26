@@ -9,7 +9,7 @@ public class BotPlayer extends Player {
         this.botDifficultyLevel = botDifficultyLevel;
     }
 
-    public void makeMove()
+    public Move makeMove(Board board)
     {
         throw new RuntimeException("need to implement BotPlayer");
     }

@@ -16,15 +16,15 @@ public class WinningStrategyFactory {
         List<WinningStrategy>  winningStrategyList = new ArrayList<WinningStrategy>();
         if(winningStrategyTypeList != null)
         {
-            if(winningStrategyTypeList.equals(WinningStrategyType.ROW))
+            if(winningStrategyTypeList.contains(WinningStrategyType.ROW))
             {
                 winningStrategyList.add(new RowWinningStrategy());
             }
-            else if(winningStrategyTypeList.equals(WinningStrategyType.COLUMN))
+            if(winningStrategyTypeList.contains(WinningStrategyType.COLUMN))
             {
                 winningStrategyList.add(new ColWinningStrategy());
             }
-            else if(winningStrategyTypeList.equals(WinningStrategyType.DIAGONAL))
+            if(winningStrategyTypeList.contains(WinningStrategyType.DIAGONAL))
             {
                 winningStrategyList.add(new DiagWinningStrategy());
             }

@@ -54,7 +54,9 @@ public class Cell {
         }
         else if(this.cellState.equals(CellState.FILLED))
         {
-            System.out.print("| "+ this.symbol +" |");
+            System.out.print("| "+ this.getSymbol() +" |");
         }
     }
+
+
 }

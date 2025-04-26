@@ -27,4 +27,19 @@ public class GameController {
     {
         game.display();
     }
+
+    public GameStatus checkGameState(TicTacToeGame game)
+    {
+        return game.getGameStatus();
+    }
+
+    public void makeMove(TicTacToeGame game)
+    {
+        game.makeMove();
+    }
+
+    public void undo(TicTacToeGame game)
+    {
+        game.undo();
+    }
 }
