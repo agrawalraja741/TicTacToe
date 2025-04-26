@@ -1,0 +1,123 @@
+Tic Tac Teo Game System
+
+I/P - command line
+data doesnt need to persist
+
+1. Broad can be N*N
+2. N-1 max player, atleast 2 players we need
+3. each player will have a unique symbol
+4. there can be multiple winning situation we need to check - row , col , diag
+5. Undo feature
+6. We need to store player details , we can have human and bot players but atleast one human player
+7. bot will have different difficulty levels
+8. Who will play the first move ? -- we can implement random strategy
+
+
+Class diagram :
+
+Game
+int size;
+Board
+List<Player>
+List<WinningStrategy>
+List<Move> moves
+status : Gamestatus
+nextPlayerIndex : int
+winnerPlayer player
+
+
+
+undo()
+
+
+enum Gamestatus
+{
+ IN_PROGRESS , DRAW , SUCCESS
+}
+
+
+interface WinningStrategy{
+Player checkwinner();
+}
+
+RowWinningStrategy implements WinningStrategy
+col
+diagnol
+
+
+Board
+list<list<cell>>
+size
+
+cell
+int row
+int col
+Symbol symbol
+cellstate : cellstate
+
+
+enum cellstate
+{
+FILLED , EMPTY
+}
+
+Symbol
+- char symb
+- playerID id
+
+Abstract Player
+- id
+- name
+- symbol
+playertype playertype
+-abstract makeMove()
+
+
+enum playerType
+{
+
+HUMAN , BOT
+}
+
+
+
+
+HumanPlayer
+-MobileNo
+makeMove()
+
+
+BotPlayer
+- DifficultyLevel diffLevel
+
+
+interface BotplayingStrategyFactory
+{
+ BotplayingStrategy getBotplayingStrategy(DifficultyLevel)
+}
+
+interface BotplayingStrategy
+{
+makeMove()
+}
+
+class NextBlankCellBotplayingStrategy implements BotplayingStrategy
+{
+makeMove()
+}
+
+enum DifficultyLevel
+{
+EAZY , MEDIUM , HARD;
+}
+
+Move
+{
+    cell cell
+    Player player
+}
+
+
+WinningStrategy
+
+
