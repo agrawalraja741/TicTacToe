@@ -29,4 +29,12 @@ public class RowWinningStrategy implements WinningStrategy {
 
         return false;
     }
+
+    public void undoMove(Board board, Move move)
+    {
+        //int val = rowMap.get(move.getCell().getRow()).get(move.getCell().getSymbol());
+        Map<Symbol,Integer> rowCountMap = rowMap.get(move.getCell().getRow());
+        Symbol sym = move.getPlayer().getSymbol();
+        rowCountMap.put(sym, rowCountMap.get(sym) - 1);
+    }
 }

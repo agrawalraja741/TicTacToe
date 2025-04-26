@@ -160,6 +160,31 @@ public class TicTacToeGame {
 
     public void undo()
     {
+        //remove last move from move list
+        Move removeMove = moves.get(moves.size()-1);
+        Player currentPlayer = removeMove.getPlayer();
+        moves.remove(moves.size()-1);
+
+        //mark empty cell
+        Cell newCell = new Cell(removeMove.getCell().getRow(), removeMove.getCell().getColumn());
+        newCell.setCellState(CellState.EMTPY);
+        board.getBoard().get(removeMove.getCell().getRow()).set(removeMove.getCell().getColumn(), newCell);
+
+        //remove data from hashmap - strategy classes
+
+        this.UndoWinningStrategy(removeMove);
+
+        // set correct nextplayerIndex
+        nextPlayerIndex--;
+        nextPlayerIndex = (nextPlayerIndex + players.size())% players.size();
+    }
+
+    public void UndoWinningStrategy(Move move)
+    {
+        for(WinningStrategy winningStrategy : getWinningStrategyList())
+        {
+            winningStrategy.undoMove(board,move);
+        }
 
     }
 

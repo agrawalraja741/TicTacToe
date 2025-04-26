@@ -9,4 +9,7 @@ public class DiagWinningStrategy implements WinningStrategy {
     {
         throw new UnsupportedOperationException(" DiagWinningStrategy Not supported yet.");
     }
+    public void undoMove(Board board, Move move) {
+        throw new UnsupportedOperationException(" DiagWinningStrategy Not supported yet.");
+    }
 }
